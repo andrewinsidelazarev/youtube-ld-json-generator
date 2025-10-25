@@ -47,3 +47,12 @@ app.get("/api/youtube-schema", async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.get("/", (req, res) => {
+    res.send(`
+        <h2>✅ YouTube LD-JSON Generator работает!</h2>
+        <p>Используйте <code>/api/youtube-schema?id=VIDEO_ID</code> для получения схемы.</p>
+        <p>Пример: <a href="/api/youtube-schema?id=poRNZFixeao">/api/youtube-schema?id=poRNZFixeao</a></p>
+    `);
+});
+
