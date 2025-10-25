@@ -3,8 +3,17 @@ import fetch from "node-fetch";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const API_KEY = process.env.YOUTUBE_API_KEY; // хранится в настройках Render
+const API_KEY = process.env.YOUTUBE_API_KEY;
 
+// ✅ 1. Разрешаем CORS ДО всех маршрутов:
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // или конкретный домен
+  res.header('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
+// ✅ 2. Основной API-маршрут:
 app.get("/api/youtube-schema", async (req, res) => {
     const videoId = req.query.id;
     if (!videoId) return res.status(400).json({ error: "videoId required" });
@@ -46,13 +55,10 @@ app.get("/api/youtube-schema", async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
+// ✅ 3. Необязательный маршрут для корня:
 app.get("/", (req, res) => {
-    res.send(`
-        <h2>✅ YouTube LD-JSON Generator работает!</h2>
-        <p>Используйте <code>/api/youtube-schema?id=VIDEO_ID</code> для получения схемы.</p>
-        <p>Пример: <a href="/api/youtube-schema?id=poRNZFixeao">/api/youtube-schema?id=poRNZFixeao</a></p>
-    `);
+    res.send("✅ YouTube Schema API работает! Используйте /api/youtube-schema?id=VIDEO_ID");
 });
 
+// ✅ 4. Запуск сервера:
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
