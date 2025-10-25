@@ -1,0 +1,14 @@
+{
+  "name": "youtube-schema-generator",
+  "version": "1.0.0",
+  "description": "API для генерации JSON-LD схем для YouTube-видео",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2"
+  }
+}
