@@ -82,6 +82,7 @@ app.get("/api/youtube-schema", async (req, res) => {
             "@type": "VideoObject",
             "name": snippet.title,
             "description": snippet.description.replace(/\n+/g,' ').replace(/\s{2,}/g,' '),
+            "original_description": snippet.description,
             "thumbnailUrl": snippet.thumbnails.default?.url || snippet.thumbnails.high?.url,
             "uploadDate": snippet.publishedAt,
             "duration": contentDetails.duration,
